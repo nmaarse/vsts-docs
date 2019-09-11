@@ -51,6 +51,17 @@ A stage contains one or more jobs. Each job runs on an agent. A job represents a
 
 A pipeline defines the continuous integration and deployment process for your app. It's made up of one or more stages. It can be thought of as a workflow that defines how your test, build, and deployment steps are run.
 
+### usefull paths
+During execution of you pipeline sources pulled, artifacts are created and deployment are done. These tasks work together and the following environmental variables are usefull when using them.
+
+In general the workspace of the pipeline looks like this:
+* $(Agent_BuildDirectory), path where all your build files are located : folder=a\1\
+* $(Build.SourceDirectory), is used by the git checkout task : folder=a\1\s\
+* $(Build.BinaryDirectory : folder=a\1\b\
+* $(Build.ArtifactStagingDirectory), path where you put your artifacts which need to be kept after build : folder=a\1\a\
+
+when executing the deploy task it automatically downloads the pipeline artifacts to the $(Agent_BuildDirectory).
+
 ## Run
 
 A run represents one execution of a pipeline. It collects the logs associated with running the steps and the results of running tests.
